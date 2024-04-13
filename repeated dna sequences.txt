@@ -1,0 +1,15 @@
+class Solution:
+    def findRepeatedDnaSequences(self, s: str) -> List[str]:
+        lst1=set()
+        lst2=set()
+        l=len(s)
+        if l<=10:
+            return list(lst1)
+        for i in range(0,l-9):
+            stri=s[i:i+10]
+            if stri in lst1 and stri not in lst2:
+                lst2.add(stri)
+            elif stri not in lst1:
+                lst1.add(stri)
+        return list(lst2) 
+        
