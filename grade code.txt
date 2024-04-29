@@ -1,0 +1,9 @@
+class Solution:
+    def grayCode(self, n: int) -> List[int]:
+        code=[0,1]
+        bit=2
+        for i in range(n-1):
+            code.extend([n|bit for n in reversed(code)])
+            bit<<=1
+        return code
+        
