@@ -1,0 +1,34 @@
+class Solution:
+    def replaceWords(self, dictionary: List[str], sentence: str) -> str:
+        class TrieNode:
+            def __init__(self):
+                self.is_word=False
+                self.children={}
+        class Trie:
+            def __init__(self):
+                self.root=TrieNode()
+            def insert(self,word):
+                curr_node=self.root
+                for ch in word:
+                    if ch not in curr_node.children:
+                        curr_node.children[ch]=TrieNode()
+                    curr_node=curr_node.children[ch]
+                curr_node.is_word=True
+            def replace(self,word):
+                curr_node=self.root
+                for i,ch in enumerate(word):
+                    if curr_node.is_word:
+                        return word[:i]
+                    if ch not in curr_node.children:
+                        return word
+                    curr_node=curr_node.children[ch]
+                return word
+        word_trie=Trie()
+        for word in dictionary:
+            word_trie.insert(word)
+        sentence_list=sentence.split(' ')
+        for i,word in enumerate(sentence_list):
+            sentence_list[i]=word_trie.replace(word)
+        return ' '.join(sentence_list)
+
+        
